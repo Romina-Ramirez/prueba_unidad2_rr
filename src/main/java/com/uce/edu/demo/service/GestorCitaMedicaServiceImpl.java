@@ -2,6 +2,7 @@ package com.uce.edu.demo.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.uce.edu.demo.repository.IPacienteRepository;
 import com.uce.edu.demo.repository.modelo.CitaMedica;
 import com.uce.edu.demo.repository.modelo.Doctor;
 import com.uce.edu.demo.repository.modelo.Paciente;
+import com.uce.edu.demo.repository.modelo.PacienteSencillo;
 
 @Service
 public class GestorCitaMedicaServiceImpl implements IGestorCitaMedicaService {
@@ -55,6 +57,11 @@ public class GestorCitaMedicaServiceImpl implements IGestorCitaMedicaService {
 		citaMedica.setFechaProximaCita(fechaProxima);
 
 		this.citaMedicaRepository.actualizar(citaMedica);
+	}
+
+	@Override
+	public List<PacienteSencillo> reportePacientes(LocalDateTime fecha, String genero) {
+		return this.pacienteRepository.leerPorFechaNacimientoGenero(fecha, genero);
 	}
 
 }

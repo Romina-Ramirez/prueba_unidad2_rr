@@ -2,6 +2,7 @@ package com.uce.edu.demo;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.uce.edu.demo.repository.modelo.Doctor;
 import com.uce.edu.demo.repository.modelo.Paciente;
+import com.uce.edu.demo.repository.modelo.PacienteSencillo;
 import com.uce.edu.demo.service.IDoctorService;
 import com.uce.edu.demo.service.IGestorCitaMedicaService;
 import com.uce.edu.demo.service.IPacienteService;
@@ -87,6 +89,14 @@ public class PruebaUnidad2RrApplication implements CommandLineRunner {
 		// Funcionalidad 4. - Actualización de cita médica
 		this.citaMedicaService.actualizarCita("0002", "Asma", "Antiinflamatorio",
 				LocalDateTime.of(2022, 8, 10, 12, 40));
+		
+		// Funcionalidad 5. - Reporte de pacientes
+		List<PacienteSencillo> pacientes = this.citaMedicaService.reportePacientes(LocalDateTime.of(1980, 12, 1, 12, 0),
+				"F");
+
+		for (PacienteSencillo item : pacientes) {
+			logger.debug("Paciente: " + item);
+		}
 
 	}
 
