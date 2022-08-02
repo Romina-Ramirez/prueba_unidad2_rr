@@ -2,7 +2,7 @@ package com.uce.edu.demo.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -23,9 +23,10 @@ public class CitaMedicaRepositoryImpl implements ICitaMedicaRepository {
 
 	@Override
 	public CitaMedica leerPorNumero(String numeroCita) {
-		Query jpqlQuery = this.entityManager.createQuery("SELECT c FROM CitaMedica c WHERE c.numeroCita = :numeroCita");
-		jpqlQuery.setParameter("numeroCita", numeroCita);
-		return (CitaMedica) jpqlQuery.getSingleResult();
+		TypedQuery<CitaMedica> myQuery = this.entityManager
+				.createQuery("SELECT c FROM CitaMedica c WHERE c.numeroCita = :numeroCita", CitaMedica.class);
+		myQuery.setParameter("numeroCita", numeroCita);
+		return myQuery.getSingleResult();
 	}
 
 	@Override

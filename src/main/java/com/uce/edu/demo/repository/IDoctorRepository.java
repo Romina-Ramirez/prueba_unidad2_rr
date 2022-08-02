@@ -12,8 +12,6 @@ public interface IDoctorRepository {
 
 	public void eliminar(Integer id);
 
-	// Adicionales al CRUD
-	// Usado para la funcionalidad 3 para buscar un doctor por cedula
 	public Doctor leerPorCedula(String cedula);
 
 }

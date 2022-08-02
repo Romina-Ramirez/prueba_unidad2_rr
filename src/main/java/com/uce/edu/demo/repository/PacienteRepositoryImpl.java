@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -38,15 +37,15 @@ public class PacienteRepositoryImpl implements IPacienteRepository {
 
 	@Override
 	public void eliminar(Integer id) {
-		Paciente paciente = this.leer(id);
-		this.entityManager.remove(paciente);
+		this.entityManager.remove(this.leer(id));
 	}
 
 	@Override
 	public Paciente leerPorCedula(String cedula) {
-		Query jpqlQuery = this.entityManager.createQuery("SELECT p FROM Paciente p WHERE p.cedula = :datoCedula");
-		jpqlQuery.setParameter("datoCedula", cedula);
-		return (Paciente) jpqlQuery.getSingleResult();
+		TypedQuery<Paciente> myQuery = this.entityManager
+				.createQuery("SELECT p FROM Paciente p WHERE p.cedula = :datoCedula", Paciente.class);
+		myQuery.setParameter("datoCedula", cedula);
+		return myQuery.getSingleResult();
 	}
 
 	@Override

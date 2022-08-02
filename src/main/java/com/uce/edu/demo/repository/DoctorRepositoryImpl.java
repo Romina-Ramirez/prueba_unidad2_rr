@@ -2,7 +2,7 @@ package com.uce.edu.demo.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -33,15 +33,15 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
 
 	@Override
 	public void eliminar(Integer id) {
-		Doctor doctor = this.leer(id);
-		this.entityManager.remove(doctor);
+		this.entityManager.remove(this.leer(id));
 	}
 
 	@Override
 	public Doctor leerPorCedula(String cedula) {
-		Query jpqlQuery = this.entityManager.createQuery("SELECT d FROM Doctor d WHERE d.cedula = :datoCedula");
-		jpqlQuery.setParameter("datoCedula", cedula);
-		return (Doctor) jpqlQuery.getSingleResult();
+		TypedQuery<Doctor> myQuery = this.entityManager
+				.createQuery("SELECT d FROM Doctor d WHERE d.cedula = :datoCedula", Doctor.class);
+		myQuery.setParameter("datoCedula", cedula);
+		return myQuery.getSingleResult();
 	}
 
 }

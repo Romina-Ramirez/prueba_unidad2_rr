@@ -1,14 +1,8 @@
 package com.uce.edu.demo.repository.modelo;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class PacienteSencillo implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class PacienteSencillo {
 
 	private String cedula;
 	private String nombre;
